@@ -25,8 +25,8 @@
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd bbbexporter
+   git clone https://github.com/JoroKudo/BbbExporter.git
+   cd BbbExporter
    ```
 
 2. Build the project using Cargo:
@@ -36,7 +36,7 @@
 
 3. The executable will be available in the `target/release/` directory:
    ```bash
-   ./target/release/bbbexporter
+   ./target/release/BbbExporter
    ```
 
 ---
@@ -45,7 +45,7 @@
 
 1. Run the executable:
    ```bash
-   ./bbbexporter
+   ./BbbExporter
    ```
 
 2. Follow the prompts:
@@ -89,5 +89,3 @@ You can open this file in any modern web browser to view the presentation.
 - Assumes the SVG files are structured in a specific way.
 - Requires a valid BigBlueButton presentation URL.
 - Internet connectivity is required to fetch the SVG data.
-
----
