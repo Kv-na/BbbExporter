@@ -1,0 +1,8 @@
+[package]
+name = "BbbExporter"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+reqwest = { version = "0.12.9", features = ["blocking", "json"] }
+futures-io = "0.3.30"
