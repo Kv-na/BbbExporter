@@ -1,6 +1,6 @@
 # BbbExporter
 
-**BbbExporter** is a command-line tool to export BigBlueButton (BBB) presentations as a self-contained HTML file. This tool allows users to download the presentation's SVG content and prepare it for standalone viewing in a web browser.
+**BbbExporter** is a command-line tool to export BigBlueButton (BBB) presentations as a self-contained HTML and PDF file. This tool allows users to download the presentation's SVG content and prepare it for standalone viewing.
 
 ---
 
@@ -8,7 +8,7 @@
 
 - Extracts SVG presentation data from a given BigBlueButton URL.
 - Adjusts the SVG content to be viewable independently.
-- Saves the presentation as an HTML file for easy sharing and offline access.
+- Saves the presentation as an HTML and PDF file for easy sharing and offline access.
 
 ---
 
@@ -18,6 +18,7 @@
 - **Dependencies**:
   - `reqwest`: For handling HTTP requests.
   - `std`: Standard Rust library for filesystem and I/O operations.
+  - `html2pdf`: For converting the output to PDF
 
 ---
 
@@ -55,7 +56,7 @@
 3. The tool will:
    - Fetch the SVG data from the specified URL.
    - Modify the content to ensure the presentation is fully viewable.
-   - Save the result as an HTML file in the current directory.
+   - Save the result as an HTML and a PDF file in the current directory.
 
 ---
 
@@ -67,6 +68,7 @@
 
 ### Output:
 - An HTML file: `my_presentation.html`
+- A PDF file: `my_presentation.pdf`
 
 You can open this file in any modern web browser to view the presentation.
 
@@ -76,16 +78,12 @@ You can open this file in any modern web browser to view the presentation.
 
 - **`extract_id_from_url(url: &str) -> Option<&str>`**: Extracts the presentation ID from the given URL.
 - **`extract_domain_from_url(url: &str) -> Option<&str>`**: Extracts the domain name from the given URL.
+- **`convert_html_to_pdf(input_path: PathBuf, output_path: PathBuf)`**: sets the PDF Export options and exports the presentation to pdf
 - **`main()`**:
   - Reads the URL and output filename from the user.
   - Constructs the URL for the SVG data.
   - Fetches and modifies the SVG content.
-  - Writes the modified content into an HTML file.
+  - Writes the modified content into an HTML and a PDF file.
 
 ---
 
-## Limitations
-
-- Assumes the SVG files are structured in a specific way.
-- Requires a valid BigBlueButton presentation URL.
-- Internet connectivity is required to fetch the SVG data.

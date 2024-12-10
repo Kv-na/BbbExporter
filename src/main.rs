@@ -1,16 +1,33 @@
+use html2pdf::run;
 use reqwest::blocking::get;
 use std::fs;
 use std::io;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 fn extract_id_from_url(url: &str) -> Option<&str> {
-    let segments: Vec<&str> = url.split('/').collect();
-    segments.last().map(|s| *s)
+    url.split('/').last()
 }
 
 fn extract_domain_from_url(url: &str) -> Option<&str> {
-    let segments: Vec<&str> = url.split('/').collect();
-    segments.get(2).map(|s| *s)
+    url.split('/').nth(2)
+}
+
+pub fn convert_html_to_pdf(input_path: PathBuf, output_path: PathBuf) {
+    let options = html2pdf::Options {
+        input: input_path,
+        output: Some(output_path),
+        landscape: true,
+        background: false,
+        wait: None,
+        header: None,
+        footer: None,
+        paper: None,
+        scale: None,
+        margin: None,
+        range: None,
+        disable_sandbox: false,
+    };
+    run(&options);
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -44,9 +61,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="svgfile" style="position:absolute;height:600px;width:800px" version="1.1" viewBox="0 0 800 600">"#, "")
             .replace("display=\"none\"", "");
 
-        let mut svg_parts: Vec<&str> = modified_svg_content.split("<svg").collect();
-        let initial_svg = svg_parts.remove(0);
-        let combined_svg = svg_parts.join("</svg> <svg");
+        let initial_svg = modified_svg_content.split("<svg").next().unwrap();
+        let combined_svg = modified_svg_content
+            .split("<svg")
+            .skip(1)
+            .collect::<Vec<&str>>()
+            .join("</svg> <svg");
 
         let final_html_content = format!(
             "<html>\n<body>\n{}<svg{}\n</body>\n</html>",
@@ -54,7 +74,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         );
 
         let output_file_path = format!("{}.html", output_filename.trim());
-        fs::write(output_file_path, final_html_content)?;
+        let input_path = PathBuf::from(&output_file_path);
+        let output_path = PathBuf::from(format!("{}.pdf", output_filename.trim()));
+        fs::write(&output_file_path, final_html_content)?;
+
+        convert_html_to_pdf(input_path, output_path);
     }
 
     Ok(())

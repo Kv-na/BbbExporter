@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 reqwest = { version = "0.12.9", features = ["blocking", "json"] }
 futures-io = "0.3.30"
+html2pdf = "0.8.0"
