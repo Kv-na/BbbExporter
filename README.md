@@ -26,7 +26,7 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/JoroKudo/BbbExporter.git
+   git clone https://github.com/Kv-na/BbbExporter.git
    cd BbbExporter
    ```
 
