@@ -3,7 +3,7 @@
 
 **BbbExporter** is a Python script to export BigBlueButton (BBB) presentations as a PDF file.
 
-Based on [this project](https://github.com/Cra-ban/BBBExporter) which in turn is based on the previous version of this project right here.
+Based on [this project](https://github.com/Cra-ban/BBBExporter) (thanks for the asciiart) which in turn is based on the previous version of this project which you are currently reading about. 
 
 ---
 
