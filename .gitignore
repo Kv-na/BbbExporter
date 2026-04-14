@@ -12,3 +12,4 @@ result/
 # System Junk 
 .DS_Store
 Thumbs.db
+.gitignore
